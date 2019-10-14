@@ -33,9 +33,9 @@ def line_fitness(line: str):
     else:
         return 4
 
-def check_change(current, new):
+def are_same(current, new):
     cur = set([x.strip() for x in current if x.startswith("hwmon")])
-    ne = set([x.strip() for x in current if x.startswith("hwmon")])
+    ne = set([x.strip() for x in new if x.startswith("hwmon")])
     return cur.issubset(ne) and cur.issuperset(ne)
 
 def save_settings(current, new):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     current = open_settings(config_path)
     new = get_hwmon_location()
 
-    if(check_change(current, new)):
+    if(are_same(current, new)):
         print("All set! No change detected.")
     else:
         save_settings(current, new)
