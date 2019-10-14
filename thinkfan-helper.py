@@ -10,7 +10,7 @@ def open_settings(path: str):
     with open(path, "r", encoding="UTF-8") as file: 
         return file.readlines()
 
-def __fittness__(line: str):
+def line_fitness(line: str):
     if line.startswith("tp_fan"):
         return 1
     elif line.startswith("hwmon"):
@@ -22,7 +22,7 @@ def __fittness__(line: str):
 
 def update_settings(current, new):
     config = [x for x in current if(not x.startswith("hwmon"))] + new
-    return sorted(config, key=cmp_to_key(lambda i1, i2: __fittness__(i1) - __fittness__(i2)))
+    return sorted(config, key=cmp_to_key(lambda i1, i2: line_fitness(i1) - line_fitness(i2)))
 
 def get_sensors():
     base_path = "/sys/devices/platform/coretemp.0/hwmon"
