@@ -48,9 +48,6 @@ def write_settings(path: str, payload: str):
         file.write(payload)
 
 def restart_thinkfan():
-    if(os.geteuid() != 0):
-        raise Exception("Current user is not superuser!")
-
     process = subprocess.Popen("systemctl restart thinkfan.service".split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     
